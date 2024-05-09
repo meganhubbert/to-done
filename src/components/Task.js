@@ -8,7 +8,10 @@ export const Task = ({ task, toggleComplete, deleteTask, editTask }) => {
 
   return (
     <div className={classBase}>
-        <p onClick={() => toggleComplete(task.id)} className={classBase + '__task ' + (task.completed ? classBase + '__task--completed' : '')} >{task.task}</p>
+        <p onClick={() => toggleComplete(task.id)} className={classBase + '__task ' + (task.completed ? classBase + '__task--completed' : '')} >
+          <div className={classBase + '__checkbox'}></div>
+          {task.task}
+        </p>
         <div>
             <FontAwesomeIcon icon={faPenToSquare} onClick={() => editTask(task.id)} />
             <FontAwesomeIcon className={classBase + '__trash-icon'} icon={faTrash} onClick={() => deleteTask(task.id)} />
