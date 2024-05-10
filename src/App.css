@@ -97,3 +97,12 @@
     border-radius: 2px;
     position: relative;
 }
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 2rem);
+    padding: 1rem;
+}

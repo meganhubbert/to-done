@@ -3,6 +3,7 @@ import { Form } from './Form';
 import { Task } from './Task';
 import { v4 as uuidv4 } from 'uuid';
 import { EditForm } from './EditForm';
+import { Footer } from './Footer';
 uuidv4();
 
 export const Wrapper = () => {
@@ -42,21 +43,24 @@ export const Wrapper = () => {
   };
 
   return (
-    <div className={classBase}>
-        <h1 className={classBase + '__title'}>Get Things Done!</h1>
-        <Form addTask={addTask} />
-        {tasks.map((task) => (
-            task.isEditing ?
-            <EditForm updateEditedTask={updateEditedTask} task={task} />
-            :
-            <Task 
-                task={task}
-                key={task.id}
-                toggleComplete={toggleComplete}
-                deleteTask={deleteTask}
-                editTask={editTask}
-            />
-        ))}
+    <div>
+      <div className={classBase}>
+          <h1 className={classBase + '__title'}>Get It Done!</h1>
+          <Form addTask={addTask} />
+          {tasks.map((task) => (
+              task.isEditing ?
+              <EditForm updateEditedTask={updateEditedTask} task={task} />
+              :
+              <Task 
+                  task={task}
+                  key={task.id}
+                  toggleComplete={toggleComplete}
+                  deleteTask={deleteTask}
+                  editTask={editTask}
+              />
+          ))}
+      </div>
+      <Footer />
     </div>
   )
 }
