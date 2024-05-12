@@ -1,64 +1,68 @@
 import React, { useState } from 'react';
 import { Form } from './Form';
-import { Task } from './Task';
+import { Todo } from './Todo';
 import { v4 as uuidv4 } from 'uuid';
 import { EditForm } from './EditForm';
 import { Footer } from './Footer';
-uuidv4();
 
 export const Wrapper = () => {
+  const [todos, setTodos] = useState([]);
   const classBase = 'wrapper';
 
-  const [tasks, setTasks] = useState([]);
 
-  const addTask = task => {
-    setTasks([...tasks, {
+  const addTodo = (todo) => {
+    setTodos([...todos, {
         id: uuidv4(),
-        task: task,
+        task: todo,
         completed: false,
         isEditing: false}])
   };
 
-  const deleteTask = id => {
-    setTasks(tasks.filter(task => task.id !== id))
+  const deleteTodo = id => {
+    setTodos(todos.filter((todo) => todo.id !== id))
   }
 
   const toggleComplete = id => {
-    setTasks(tasks.map(task => task.id === id ? {
-        ...task, completed: !task.completed
-        } : task
+    setTodos(
+      todos.map((todo) => 
+        todo.id === id ? {
+          ...todo, completed: !todo.completed
+        } : todo)
+    )
+  };
+
+  const editTodo = (id) => {
+    setTodos(
+      todos.map((todo) => todo.id === id ? {
+          ...todo, isEditing: !todo.isEditing
+      } : todo)
+    )
+  };
+
+  const appendTodo = (task, id) => {
+    setTodos(todos.map((todo) => todo.id === id ? {
+      ...todo, task, isEditing: !todo.isEditing
+    } : todo
     ))
-  };
-
-  const editTask = id => {
-    setTasks(tasks.map(task => task.id === id ? {
-        ...task, isEditing: !task.isEditing
-    } : task))
-  };
-
-  const updateEditedTask = (newTask, id) => {
-    setTasks(tasks.map(task => task.id === id ? {
-        ...task, newTask, isEditing: !task.isEditing
-    } :  task))
-  };
+  }
 
   return (
     <div>
       <div className={classBase}>
           <h1 className={classBase + '__title'}>Get It Done!</h1>
-          <Form addTask={addTask} />
-          {tasks.map((task) => (
-              task.isEditing ?
-              <EditForm updateEditedTask={updateEditedTask} task={task} />
-              :
-              <Task 
-                  task={task}
-                  key={task.id}
+          <Form addTodo={addTodo} />
+          {todos.map((todo) => 
+              todo.isEditing ? 
+              <EditForm appendTodo={appendTodo} task={todo} />
+               : 
+              <Todo
+                  key={todo.id}
+                  task={todo}
                   toggleComplete={toggleComplete}
-                  deleteTask={deleteTask}
-                  editTask={editTask}
+                  deleteTodo={deleteTodo}
+                  editTodo={editTodo}
               />
-          ))}
+          )}
       </div>
       <Footer />
     </div>

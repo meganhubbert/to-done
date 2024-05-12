@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-export const Form = ({ addTask }) => {
+export const Form = ({ addTodo }) => {
   const classBase = 'form';
   const [value, setValue] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
-    addTask(value);
+    addTodo(value);
     setValue('');
   };
 

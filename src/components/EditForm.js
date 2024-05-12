@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-export const EditForm = ({ updateEditedTask, task }) => {
+export const EditForm = ({ appendTodo, task }) => {
   const classBase = 'form';
   const [value, setValue] = useState(task.task);
 
   const handleSubmit = e => {
     e.preventDefault();
-    updateEditedTask(value, task.id);
+    appendTodo(value, task.id);
   };
 
   return (
